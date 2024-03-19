@@ -12,6 +12,8 @@ display = [ ]
 choosen_word_list = [*choosen_word]
 lives = 6
 
+# Hello text 
+
 for x in range(word_length):
     display.append("_")
 
