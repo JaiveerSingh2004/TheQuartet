@@ -12,7 +12,7 @@ display = [ ]
 choosen_word_list = [*choosen_word]
 lives = 6
 
-# Hello text 
+
 
 for x in range(word_length):
     display.append("_")
@@ -21,6 +21,11 @@ end_of_game = False
 while not end_of_game:
 
     guess = input("Enter the letter to guess the word: ").lower()
+
+    # Checks if entered charachters is number or more than one characheter
+    if not guess.isalpha() or len(guess) != 1:
+        print("Please enter a valid single character.")
+        continue
 
     if guess in display:
         print(f"You have already guessed this letter {guess}.")
