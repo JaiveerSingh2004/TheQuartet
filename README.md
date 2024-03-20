@@ -24,6 +24,6 @@ To run the Hangman game, follow these steps:-
 - Continue guessing letters until you either guess the word correctly or run out of attempts.
 
 ## Additional Features/Notes
-- The game provides a graphical representation of the hangman as the player makes incorrect guesses.
+- The game provides a graphical representation of the hangman when the player makes incorrect guesses.
 - The word list can be expanded or customized in the `word_list.py` file.
 
