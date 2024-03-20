@@ -26,4 +26,4 @@ To run the Hangman game, follow these steps:-
 ## Additional Features/Notes
 - The game provides a graphical representation of the hangman as the player makes incorrect guesses.
 - The word list can be expanded or customized in the `word_list.py` file.
-- Flowchart  
+
