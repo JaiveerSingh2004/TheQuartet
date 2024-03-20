@@ -3,6 +3,8 @@
 ## Description
 Hangman is a classic word-guessing game where the player tries to guess a word by suggesting letters within a certain number of attempts. This project implements a simple Hangman game in Python.
 
+![Flowchart Title](https://link_to_your_image.jpg)
+
 ## Team Members
 - [Your Name]: Project Lead, Game Developer
 - [Teammate 1 Name]: Game Tester
@@ -24,4 +26,4 @@ To run the Hangman game, follow these steps:
 ## Additional Features/Notes
 - The game provides a graphical representation of the hangman as the player makes incorrect guesses.
 - The word list can be expanded or customized in the `word_list.py` file.
-- Feel free to modify or extend the game according to your preferences.
+- Flowchart  
