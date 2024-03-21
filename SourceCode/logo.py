@@ -1,3 +1,5 @@
+
+# This file contains the logo of the application
 logo = '''
                                                                               
 88                                                                            
