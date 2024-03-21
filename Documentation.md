@@ -89,4 +89,4 @@ In addition to the main functionalities, the Hangman game includes the following
 
 You can play the Hangman Game online using the following link:
 
-[Play Hangman Game on Replit](https://replit.com/@TheTrio03/TheHangmanGame?v=1)
+[Play Hangman Game on Replit](https://replit.com/@TheQuartet/Hangman-Game?v=1)
