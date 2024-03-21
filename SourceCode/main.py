@@ -10,7 +10,7 @@ chosen_word = random.choice(word_list.word_list[chosen_category]) # Choose a ran
 word_length = len(chosen_word) # Get the length of the chosen word
 display = ["_"] * word_length # Create a list of underscores to display the word
 
-
+print("Category of the choosen word:")
 print(word_list.category_ASCII[chosen_category]) #  Print the ASCII art for the selected category
 
 print(f"The word consists of {word_length} characters.") # Print the length of the chosen word
