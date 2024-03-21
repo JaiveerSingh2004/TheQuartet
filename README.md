@@ -31,6 +31,6 @@ You can play the Hangman Game online using the following link:
 
 ## Flowchart
 
-![Flowchart](flowchart)
+[Flowchart](flowchart)
 
 
