@@ -21,7 +21,7 @@ Hangman Game is a simple Python-based game where players attempt to guess a word
 
 You can play the Hangman Game online using the following link:
 
-![Play Hangman Game on Replit](https://replit.com/@TheQuartet/Hangman-Game?v=1)
+[Play Hangman Game on Replit](https://replit.com/@TheQuartet/Hangman-Game?v=1)
 
 ## Additional Features and Notes
 
