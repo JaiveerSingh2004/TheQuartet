@@ -44,7 +44,8 @@ while not end_of_game: # While the end of game is False
         lives -= 1 
         if lives == 0:
             end_of_game = True
-            print(f"The word was {chosen_word}.")
+            print("\n")
+            print(f"The word was {chosen_word.upper()}.")
     # If the guessed letter is in the chosen word          
     else:
         for position in range(word_length):
