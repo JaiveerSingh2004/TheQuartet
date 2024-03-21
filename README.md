@@ -1,29 +1,36 @@
 # Hangman Game
 
-## Description
-Hangman is a classic word-guessing game where the player tries to guess a word by suggesting letters within a certain number of attempts. This project implements a simple Hangman game in Python.
-
-![Flowchart Title](https://github.com/JaiveerSingh2004/TheTrio/blob/main/SourceCode/Hangman%20Flowcart.png)
+Hangman Game is a simple Python-based game where players attempt to guess a word by suggesting letters within a certain number of guesses. The game provides hints about the category of the word and includes visual representation of the hangman for incorrect guesses.
 
 ## Team Members
-- Jaiveer Singh: Project Lead, Game Developer
-- Ishpreet Kaur: Game Tester
-- Isha: Documentation Writer
 
-## Instructions
-To run the Hangman game, follow these steps:-
+- Jaiveer Singh - Developer
+- Ishpreet Kaur - Manager
+- Isha - Tester
+
+## Instructions for Running the Game
 
 1. Clone the repository to your local machine.
- 
-2. Navigate to the project directory.
+2. Make sure you have Python installed.
+3. Navigate to the directory where the game files are located.
+4. Run `python main.py` in your terminal.
+5. Follow the prompts to play the game.
 
-3. Run the game script.
+## Play Online
 
-4. Follow the on-screen instructions to play the game:
-- Guess a letter by entering it and pressing Enter.
-- Continue guessing letters until you either guess the word correctly or run out of attempts.
+You can play the Hangman Game online using the following link:
 
-## Additional Features/Notes
-- The game provides a graphical representation of the hangman when the player makes incorrect guesses.
-- The word list can be expanded or customized in the `word_list.py` file.
+[Play Hangman Game on Replit](your_replit_link_here)
+
+## Additional Features and Notes
+
+- The game randomly selects a word from a predefined list based on different categories.
+- Each time a player makes an incorrect guess, a part of the hangman is displayed as ASCII art.
+- The game provides hints about the category of the word.
+- The game ends when the player correctly guesses the word or runs out of lives.
+
+## Flowchart
+
+![Flowchart](flowchart)
+
 
