@@ -4,9 +4,10 @@ Hangman Game is a simple Python-based game where players attempt to guess a word
 
 ## Team Members
 
-- Jaiveer Singh - Developer
-- Ishpreet Kaur - Manager
-- Isha - Tester
+- Jaiveer Singh (2310992104) - Developer
+- Ishpreet Kaur (2310992102) - Manager
+- Isha (2310992099) - Tester
+- Navya (2310992164) - Documentation Editor
 
 ## Instructions for Running the Game
 
@@ -20,7 +21,7 @@ Hangman Game is a simple Python-based game where players attempt to guess a word
 
 You can play the Hangman Game online using the following link:
 
-[Play Hangman Game on Replit](your_replit_link_here)
+[Play Hangman Game on Replit](https://replit.com/@TheTrio03/TheHangmanGame?v=1)
 
 ## Additional Features and Notes
 
@@ -31,6 +32,6 @@ You can play the Hangman Game online using the following link:
 
 ## Flowchart
 
-[Flowchart](flowchart)
+[Flowchart](https://github.com/JaiveerSingh2004/TheTrio/blob/main/SourceCode/Flow%20Chart.jpg)
 
 
