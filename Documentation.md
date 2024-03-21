@@ -7,7 +7,7 @@ The game provides hints about the category of the word and includes visual repre
 
 ## Demo Gameplay Video
 
-<a href="https://drive.google.com/file/d/1yqnBVOYjGJYEfvXl6SLxXLb2xBIQccG8/view?usp=sharing" target = "_blank">Gameplay Video</a>
+<a href="https://drive.google.com/file/d/1yqnBVOYjGJYEfvXl6SLxXLb2xBIQccG8/view?usp=sharing" target="_blank">Gameplay Video</a>
 
 ## Functionality
 
