@@ -32,6 +32,6 @@ You can play the Hangman Game online using the following link:
 
 ## Flowchart
 
-![Flowchart](https://drive.google.com/file/d/1AY1wOqANG_yuIbIDnekcwGOFvvcXRb1o/view?usp=sharing)
+![Flowchart](https://github.com/JaiveerSingh2004/TheTrio/blob/main/SourceCode/Flow%20Chart.jpg)
 
 
