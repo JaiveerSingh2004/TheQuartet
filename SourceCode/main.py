@@ -40,12 +40,14 @@ while not end_of_game: # While the end of game is False
 
     # Check if the guessed letter is not in the chosen word
     if guess not in chosen_word:
-        print(f"This letter {guess} is not in the word, you lost a life. :( ") 
+        print(f"This letter {guess} is not in the word, you lost a life. :( ")
+        print(stages.stages[lives]) 
         lives -= 1 
         if lives == 0:
             end_of_game = True
             print("\n")
             print(f"The word was {chosen_word.upper()}.")
+            
     # If the guessed letter is in the chosen word          
     else:
         for position in range(word_length):
@@ -59,4 +61,3 @@ while not end_of_game: # While the end of game is False
         print(f"The word was {chosen_word.upper()}.") 
         print(stages.you_win) 
 
-    print(stages.stages[lives])  # Adjusting lives for indexing
