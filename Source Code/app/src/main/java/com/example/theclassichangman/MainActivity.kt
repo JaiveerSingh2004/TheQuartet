@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -44,6 +46,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.theclassichangman.ui.theme.TheClassicHangmanTheme
@@ -69,7 +72,10 @@ class MainActivity : ComponentActivity() {
                         playCorrectGuessSound = ::playCorrectGuessSound,
                         playWinSound = ::playWinSound,
                         playLoseSound = ::playLoseSound,
-                        playWrongLetterSound = ::playWrongLetterSound
+                        playWrongLetterSound = ::playWrongLetterSound,
+                        soundEffectPlayer = soundEffectPlayer,
+                        categoriesAndWords = categoriesAndWords // Add this line
+
                     )
                 }
             }
@@ -166,8 +172,8 @@ class MainActivity : ComponentActivity() {
 
     private fun chooseRandomWord(categoriesAndWords: List<Pair<String, List<String>>>): Pair<String, String> {
         val randomPair = categoriesAndWords.random()
-        val randomCategory = randomPair.first
-        val randomWord = randomPair.second.random()
+        var randomCategory = randomPair.first
+        var randomWord = randomPair.second.random()
         return Pair(randomCategory, randomWord)
     }
 
@@ -179,20 +185,27 @@ fun Main(
     playCorrectGuessSound: () -> Unit,
     playWinSound: () -> Unit,
     playLoseSound: () -> Unit,
-    playWrongLetterSound: () -> Unit
-    ) {
+    playWrongLetterSound: () -> Unit,
+    soundEffectPlayer: MediaPlayer?,
+    categoriesAndWords: List<Pair<String, List<String>>> // Add this line
+) {
 
 
     fun buildInitialGuessedWord(word: String): String {
-        return word.map{ '_' }.joinToString(" ")
+        return word.map { '_' }.joinToString(" ")
     }
+
+    var initialCategory = category
+    var initialRandomWord = randomWord
+
+    var category by remember { mutableStateOf(initialCategory) }
+    var randomWord by remember { mutableStateOf(initialRandomWord) }
 
     var guessedWord by remember { mutableStateOf(buildInitialGuessedWord(randomWord)) }
     var lives by remember { mutableStateOf(6) } // Start with 6 lives
     var hangmanImage by remember { mutableStateOf(R.drawable.hangman01) }
     val disabledButtons = remember { mutableStateOf(mutableSetOf<Char>()) }
     val context = LocalContext.current
-
 
 
     fun handleButtonClick(letter: Char) {
@@ -226,11 +239,31 @@ fun Main(
         disabledButtons.value.add(letter)
 
 
+        fun resetGame() {
+            // Add your game reset logic here
+            // For example, you might want to reset the guessed word, lives, hangman image, and disabled buttons
+            soundEffectPlayer?.let {
+                if (it.isPlaying) {
+                    it.stop()
+                }
+            }
+            val (newRandomCategory, newRandomWord) = chooseRandomWord(categoriesAndWords)
+
+            // Reset the game state
+            category = newRandomCategory
+            randomWord = newRandomWord
+            guessedWord = buildInitialGuessedWord(randomWord)
+            lives = 6
+            hangmanImage = R.drawable.hangman01
+            disabledButtons.value.clear()
+        }
+
         fun showDialog(title: String, message: String) {
             AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK") { dialog, _ ->
+                .setPositiveButton("Play Again!") { dialog, _ ->
+                    resetGame()
                     dialog.dismiss()
                 }
                 .show()
@@ -258,20 +291,27 @@ fun Main(
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.matchParentSize()
         )
-        Column (modifier = Modifier.fillMaxSize(),
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally){
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
             Spacer(modifier = Modifier.height(32.dp))
 
             Image(
-                        painter = painterResource(id = hangmanImage),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .height(300.dp)
-                            .width(300.dp)
-                            .padding(16.dp)
-                    )
-
+                painter = painterResource(id = hangmanImage),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .size(250.dp)
+                    .aspectRatio(1f)
+            )
         }
 
         Column(
@@ -282,14 +322,16 @@ fun Main(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(text = "Category: $category",
+            Text(
+                text = "Category: $category",
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.Magenta,
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
 
             Text(
                 text = guessedWord,
-                style = MaterialTheme.typography.displayLarge,
+                style = MaterialTheme.typography.displayMedium,
                 color = Color.Black,
                 textAlign = TextAlign.Center
             )
@@ -304,47 +346,87 @@ fun Main(
 
         }
 
-        Column (
+        Box(
+            contentAlignment = Alignment.BottomCenter,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .padding(16.dp)
-        ){
-            val letters = ('A'..'Z').toList()
-            val chunkedLetters = letters.chunked(7)
+        )
+         {
+            Column {
+                val letters = ('A'..'Z').toList()
+                val chunkedLetters = letters.chunked(7)
 
-            chunkedLetters.forEach { chunk ->
-                Row(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    chunk.forEach { letter ->
-                        Button(
-                            onClick = { handleButtonClick(letter) },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.Transparent,
-                                contentColor = Color.Black
-                            ),
-                            enabled = !disabledButtons.value.contains(letter),
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(text = letter.toString(),
-                                fontSize = 25.sp,
-                                fontFamily = FontFamily.Cursive,
-                                fontWeight = FontWeight.Bold
-                            )
+                chunkedLetters.forEach { chunk ->
+                    Row(
+//                        modifier = Modifier.padding(vertical = 6.dp, horizontal = 16.dp),
+                        modifier = Modifier.padding(1.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        chunk.forEach { letter ->
+                            Button(
+                                onClick = { handleButtonClick(letter) },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.Transparent,
+                                    contentColor = Color.Black
+                                ),
+                                enabled = !disabledButtons.value.contains(letter),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .aspectRatio(1f)
+                            ) {
+                                Text(
+                                    text = letter.toString(),
+                                    fontSize = 25.sp,
+                                    fontFamily = FontFamily.Cursive,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }
             }
+
+
         }
-
-
-
-
-
     }
 }
+
+
+@Preview(showBackground = true, widthDp = 412, heightDp = 915)
+@Composable
+fun PreviewJaiveerMain() {
+    TheClassicHangmanTheme {
+        Main(
+            category = "Test Category",
+            randomWord = "TestWord",
+            playCorrectGuessSound = {},
+            playWinSound = {},
+            playLoseSound = {},
+            playWrongLetterSound = {},
+            soundEffectPlayer = null,
+            categoriesAndWords = emptyList() // Add this line
+
+        )
+    }
+}
+
+//@Preview(showBackground = true, widthDp = 360, heightDp = 800)
+//@Composable
+//fun PreviewIshpreetMain() {
+//    TheClassicHangmanTheme {
+//        Main(
+//            category = "Test Category",
+//            randomWord = "TestWord",
+//            playCorrectGuessSound = {},
+//            playWinSound = {},
+//            playLoseSound = {},
+//            playWrongLetterSound = {},
+//            soundEffectPlayer = null
+
+//        )
+//    }
+//}
 
 
 
